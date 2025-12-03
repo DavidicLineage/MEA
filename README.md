@@ -1,0 +1,2 @@
+# MEA
+Median-Extremes Alternation
