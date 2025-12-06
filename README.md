@@ -45,6 +45,13 @@ Given a list of ordered elements:
 
 After the first step (which may be a single element), all further steps occur in **pairs**.
 
+The MEA permutation is a deterministic, reversible traversal that removes elements in an alternating pattern: center(s), then extremes, then center(s), and so on.
+It is defined mathematically by a closed-form, single-pass O(n) construction.
+The reference code included here (mea.py) is a simple pedagogical implementation and runs in O(n²) due to Python list operations. It is not optimized and is provided only as a minimal working example.
+
+For the formal definition, proofs, and full system context, see the documents in this repository (MEAspec.pdf, traversal paper, introduction materials, etc.).
+
+See mea.py for the reference implementation.
 ---
 
 ## Examples
