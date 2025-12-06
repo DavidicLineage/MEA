@@ -1,7 +1,7 @@
-# MEA
-Median-Extremes Alternation
+# MEA  
+Median–Extremes Alternation
 
-A deterministic, reversible permutation algorithm based on alternating center and edge extraction.
+A deterministic, reversible permutation defined by alternating center and edge extraction.
 
 **DOI:** https://doi.org/10.5281/zenodo.17799015  
 **Archive:** https://zenodo.org/records/17799015
@@ -11,53 +11,55 @@ A deterministic, reversible permutation algorithm based on alternating center an
 ## Overview
 
 MEA (Median–Extremes Alternation) is a novel, length-preserving permutation on finite sequences.  
-It alternates between removing elements from the **center** and from the **extremes** of a list until all elements have been consumed. The resulting output order defines a deterministic permutation πₙ for each sequence length *n*.
+It alternates between removing elements from the **center** and from the **extremes** to produce a deterministic permutation πₙ for each length *n*.
 
 MEA is:
 
 - deterministic  
 - reversible  
-- linear-time (O(n))  
-- length-preserving  
+- mathematically linear-time (O(n))  
 - structure-rich  
 - simple to implement in any language  
 
-It is suitable for combinatorics research, deterministic shuffling, reversible mixing, and experimental cryptographic constructions (e.g., P-boxes, PRPs, reversible transforms).
+It is useful for combinatorics, deterministic shuffling, reversible transforms, and experimental cryptographic constructions.
 
 ---
 
 ## How MEA Works
 
-Given a list of ordered elements:
+Given an ordered list `[1, 2, …, n]`:
 
 1. **Center extraction**  
-   - If length is **odd** → remove the single middle element  
-   - If length is **even** → remove the central *pair* (lower median first, then upper median)
+   - If *n* is **odd** → remove the middle element.  
+   - If *n* is **even** → remove both central elements (lower median first).
 
 2. **Edge extraction**  
-   - Remove the current **leftmost** element  
-   - Remove the current **rightmost** element  
+   - Remove the current **leftmost** element.  
+   - Remove the current **rightmost** element.
 
-3. Repeat  
-   Always alternate in the order:  
-   **Center → Edges → Center → Edges → …**  
-   until no elements remain.
+3. **Repeat**  
+   Alternate **Center → Edges → Center → Edges → …**  
+   until the list is empty.
 
-After the first step (which may be a single element), all further steps occur in **pairs**.
+After the initial center removal (one or two elements), all remaining removals occur in pairs.
 
-The MEA permutation is a deterministic, reversible traversal that removes elements in an alternating pattern: center(s), then extremes, then center(s), and so on.
-It is defined mathematically by a closed-form, single-pass O(n) construction.
-The reference code included here (mea.py) is a simple pedagogical implementation and runs in O(n²) due to Python list operations. It is not optimized and is provided only as a minimal working example.
+---
 
-For the formal definition, proofs, and full system context, see the documents in this repository (MEAspec.pdf, traversal paper, introduction materials, etc.).
+## Complexity Note
 
-See mea.py for the reference implementation.
+The **MEA operator itself is O(n)** and has a closed-form, single-pass construction (see spec and traversal paper).
+
+The file **`mea.py`** is a **pedagogical reference implementation**.  
+It uses Python list pops and therefore runs in **O(n²)**.  
+It is not optimized.
+
 ---
 
 ## Examples
 
-Applying MEA to the identity sequences:
+Applying MEA to the identity sequence:
 
+```
 n=1: 1
 n=2: 12
 n=3: 213
@@ -65,74 +67,61 @@ n=4: 2314
 n=5: 31524
 n=6: 341625
 n=7: 4173526
-
-
-These are the images of `[1, 2, ..., n]` under πₙ.
+```
 
 ---
 
 ## Python Reference Implementation
-
-The file `mea.py` contains the canonical implementation.
-
-Example use:
 
 ```python
 from mea import mea_order, mea_inverse
 
 print(mea_order(7))     # [4, 1, 7, 3, 5, 2, 6]
 print(mea_inverse(7))   # [2, 6, 4, 1, 5, 7, 3]
-Complexity
+```
 
-Time: O(n)
+### Complexity of This Implementation
+- Time: O(n²)  
+- Space: O(n)
 
-Space: O(n)
+---
 
-MEA performs a fixed sequence of pop operations with minimal overhead.
+## Applications & Research Directions
 
-Applications and Research Directions
+### Combinatorics
+- cycle structure of πₙ  
+- parity / sign  
+- behavior under iteration  
+- closed forms and recurrences  
 
-Combinatorics
+### Cryptography (experimental)
+- P-boxes  
+- reversible scramblers  
+- lightweight PRP components  
+- format-preserving transforms  
 
-cycle structure of πₙ
+### Deterministic Shuffling & Mixing
+- deck/card orderings  
+- reversible data interleaving  
 
-parity/sign of the permutation
+---
 
-behavior under repeated application
+## Citation
 
-closed forms and recurrences
-
-Cryptography (experimental)
-
-P-box construction
-
-reversible scramblers
-
-lightweight PRP components
-
-format-preserving transforms
-
-Deterministic Shuffling
-
-deck/card ordering
-
-reversible mixing
-
-data interleaving
-
-Citation
-
-If you use or reference MEA, please cite:
-
-Carr, D. (2025). MEA: Median–Extremes Alternation (Version 1.0.1) [Software]. Zenodo.
+Carr, D. (2025). *MEA: Median–Extremes Alternation* (Version 1.0.1) [Software]. Zenodo.  
 https://doi.org/10.5281/zenodo.17799015
 
-License
+---
 
-Released under the Apache License 2.0.
-See LICENSE for details.
+## License
 
-Contributing
+Released under the Apache License 2.0.  
+See `LICENSE` for details.
 
-Analysis, optimizations, proofs, and alternate implementations are welcome.
-Open an issue or pull request if you'd like to contribute.
+---
+
+## Contributing
+
+Optimizations, analyses, proofs, and alternative implementations are welcome.  
+Open an issue or pull request.
+.
